@@ -26,7 +26,7 @@ pub struct Model<B: burn::tensor::backend::Backend> {
 #[derive(Config, Debug)]
 pub struct ModelConfig {
     #[config(default = 6)] input_size: usize,
-    #[config(default = 256)] hidden_size: usize,
+    #[config(default = 512)] hidden_size: usize,
     #[config(default = 6)] output_size: usize,
 }
 
@@ -91,8 +91,8 @@ fn entrenar_y_predecir(sorteos_raw: Vec<Sorteo>, reintegros_raw: Vec<Reintegro>)
     let inputs = inputs_tensor.clone().slice([0..num_sorteos-1, 0..6]);
     let targets = inputs_tensor.clone().slice([1..num_sorteos, 0..6]);
 
-    println!("--> Entrenando Números (3000 épocas)...");
-    for epoch in 1..=3000 {
+    println!("--> Entrenando Números (5000 épocas)...");
+    for epoch in 1..=5000 {
         let x = model.layer1.forward(inputs.clone());
         let x = model.activation.forward(x);
         let x = model.layer2.forward(x);
